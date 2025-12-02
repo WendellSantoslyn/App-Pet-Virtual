@@ -1,0 +1,131 @@
+#################################
+# ⚡ PYTHON
+#################################
+
+# Ambientes virtuais
+venv/
+env/
+ENV/
+.venv/
+
+# Cache e temporários
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pdb
+*.egg-info/
+*.egg
+
+# Build
+build/
+dist/
+
+# Logs
+*.log
+
+# Configs locais
+*.env
+*.ini
+*.local
+
+#################################
+# 🔵 FASTAPI / UVICORN
+#################################
+
+# Arquivos gerados automaticamente
+/.coverage
+coverage.xml
+htmlcov/
+pytest_cache/
+
+#################################
+# 📱 FLUTTER
+#################################
+
+# Diretórios gerados
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+coverage/
+ios/Flutter/.last_build_id
+
+# Arquivos temporários
+*.lock
+*.iml
+
+# Android
+android/.gradle/
+android/local.properties
+android/app/*.keystore
+android/key.properties
+android/.idea/
+**/GeneratedPluginRegistrant.java
+
+# iOS
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/App.framework
+ios/Flutter/Flutter.framework
+ios/Flutter/Generated.xcconfig
+ios/Flutter/ephemeral/
+ios/Runner/GeneratedPluginRegistrant.*
+
+# Web
+web/.dart_tool/
+
+# Windows
+windows/flutter/ephemeral/
+
+#################################
+# 🖼 ARQUIVOS DE SISTEMA
+#################################
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# VSCode / IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+#################################
+# 🧪 MODELAGEM 3D (Blender)
+#################################
+
+# Arquivos temporários do Blender
+*.blend1
+*.blend2
+*.blend@
+*.blend~
+
+# Backups automáticos
+*.blend*1
+*.blend*2
+
+# Cache de simulação do Blender
+_cache/
+*.bphys
+*.bobj
+*.vdb
+*.abc
+
+# Exportações temporárias
+*.fbx
+*.obj
+*.dae

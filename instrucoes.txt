@@ -1,0 +1,42 @@
+Instruções para o uso do aplicação:
+
+1- Crie seu próprio venv:
+
+-Se encontre na pasta backend\ via terminal e execute: python -m venv venv
+-Ative o venv logo após executando: venv\Scripts\activate (Windows) source venv/bin/activate (Linux/Mac)
+
+2- Esteja atualizado com as requisições do projeto:
+
+-Se encontre na pasta backend\ via terminal e execute: pip install -r requirements.txt
+-Se encontre na pasta frontend\app_pet_virtual via terminl e execute: flutter pub get
+
+3- Altere as opções de servidor local para que coincida com sua situação:
+
+Caso esteja utilizando um emulador local para rodar a aplicação:
+
+-Em api.dart (App-Pet-Virtual\frontend\app_pet_virtual\lib\services\api.dart), altere o código para:
+static const String baseUrl = "http://127.0.0.1:8000";
+
+Caso esteja rodando em um dispositivo físico:
+
+-Certifique-se de estar conectado na mesma rede Wi-Fi que seu PC.
+-Em api.dart (App-Pet-Virtual\frontend\app_pet_virtual\lib\services\api.dart), altere o código para:
+static const String baseUrl = "http://seu.ip.aqui.x:8000";
+
+4- Execute o servidor antes de executar a aplicação:
+
+-Se encontre na pasta backend\ via terminal e execute:
+uvicorn app.main:app --reload (Emulador Local);
+uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload (Dispositivo Físico);
+
+///--//----//----//----//----//----//----//----//----//----//----//----//----//----//----//----//--///
+
+Obs: Caso tenha adicionado novas dependências ao projeto, atualize o requirements.txt antes de repassar
+o projeto.
+
+-Ainda com o venv ativado, na pasta backend\ via terminal, execute: pip freeze > requirements.txt
+
+Caminho dos arquivos relevantes:
+
+Raiz Backend - App-Pet-Virtual\backend\
+api.dart - App-Pet-Virtual\frontend\app_pet_virtual\lib\services\api.dart
