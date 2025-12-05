@@ -5,7 +5,8 @@ from app.crud.users import (
     get_user,
     get_all_users,
     update_user,
-    delete_user
+    delete_user,
+    login_user
 )
 
 router = APIRouter(prefix="/users", tags=["Users"])
@@ -51,3 +52,12 @@ def delete_user_route(user_id: str):
         raise HTTPException(status_code=404, detail="User not found")
 
     return {"status": "deleted"}
+
+@router.post("/login", response_model=UserResponse)
+def login_route(credentials: UserCreate):
+    user = login_user(credentials.login, credentials.senha)
+
+    if not user:
+        raise HTTPException(status_code=401, detail="Credenciais inválidas")
+
+    return user

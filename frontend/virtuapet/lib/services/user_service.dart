@@ -23,4 +23,26 @@ class UserService {
       throw Exception("Erro ao criar usuário: ${response.body}");
     }
   }
+
+  Future<UserModel> loginUser(String login, String senha) async {
+  final url = Uri.parse("$baseUrl/login");
+
+  final response = await http.post(
+    url,
+    headers: {'Content-Type': 'application/json'},
+    body: jsonEncode({
+      "login": login,
+      "senha": senha,
+    }),
+  );
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      return UserModel.fromJson(data);
+    } else if (response.statusCode == 401) {
+      throw Exception("Credenciais inválidas");
+    } else {
+      throw Exception("Erro no login: ${response.body}");
+    }
+  }
+
 }

@@ -1,47 +1,56 @@
 import 'package:flutter/material.dart';
 import '../services/user_service.dart';
 
-class Registrar extends StatefulWidget {
-  const Registrar({super.key});
+class Login extends StatefulWidget {
+  const Login({super.key});
 
   @override
-  State<Registrar> createState() => _RegistrarState();
+  State<Login> createState() => _LoginState();
 }
 
-class _RegistrarState extends State<Registrar> {
+class _LoginState extends State<Login> {
   final loginCtrl = TextEditingController();
   final senhaCtrl = TextEditingController();
 
   bool loading = false;
   final UserService _userService = UserService();
 
-  Future<void> registrar() async {
-    setState(() => loading = true);
+Future<void> login() async {
+  setState(() => loading = true);
 
-    try {
-      final user = await _userService.createUser(
-        loginCtrl.text.trim(),
-        senhaCtrl.text.trim(),
-      );
+  try {
+    final user = await _userService.loginUser(
+      loginCtrl.text.trim(),
+      senhaCtrl.text.trim(),
+    );
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Usuário criado! ID: ${user.id}")),
-      );
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Bem-vindo, ${user.login}!")),
+    );
 
-      Navigator.pop(context); // volta pra tela anterior
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Erro: $e")),
-      );
+    // Se não tiver pet → vai para criar pet
+    if (!user.hasPet) {
+      Navigator.pushReplacementNamed(context, '/petsetup', arguments: user.id);
+      return;
     }
 
-    setState(() => loading = false);
+    // Se já tiver pet → vai para home
+    Navigator.pushReplacementNamed(context, '/home', arguments: user.id);
+
+  } catch (e) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Erro: $e")),
+    );
   }
+
+  setState(() => loading = false);
+}
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Registrar Usuário")),
+      appBar: AppBar(title: const Text("Login")),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -63,10 +72,10 @@ class _RegistrarState extends State<Registrar> {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: loading ? null : registrar,
+                onPressed: loading ? null : login,
                 child: loading
                     ? const CircularProgressIndicator()
-                    : const Text("Criar Usuário"),
+                    : const Text("Entrar"),
               ),
             )
           ],

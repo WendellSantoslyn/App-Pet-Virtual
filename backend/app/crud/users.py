@@ -58,3 +58,22 @@ def delete_user(user_id: str) -> bool:
 
     doc_ref.delete()
     return True
+
+
+def login_user(login: str, senha: str) -> dict | None:
+    query = db.collection(COLLECTION).where("login", "==", login).limit(1).get()
+
+    if not query:
+        return None
+
+    doc = query[0]
+    data = doc.to_dict()
+
+    if data.get("senha") != senha:
+        return None
+
+    return {
+        "id": doc.id,
+        "login": data.get("login"),
+        "senha": data.get("senha")
+    }
