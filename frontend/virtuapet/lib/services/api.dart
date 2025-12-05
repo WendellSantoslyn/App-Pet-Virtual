@@ -2,7 +2,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class Api {
-  static const String baseUrl = "http://192.168.0.107:8000";
+  static const String baseUrl = "http://127.0.0.1:8000";
 
   static Future<Map<String, dynamic>> checkBackend() async {
     final url = Uri.parse("$baseUrl/");
