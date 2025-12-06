@@ -15,70 +15,88 @@ class _LoginState extends State<Login> {
   bool loading = false;
   final UserService _userService = UserService();
 
-Future<void> login() async {
-  setState(() => loading = true);
+  Future<void> login() async {
+    setState(() => loading = true);
 
-  try {
-    final user = await _userService.loginUser(
-      loginCtrl.text.trim(),
-      senhaCtrl.text.trim(),
-    );
+    try {
+      final user = await _userService.loginUser(
+        loginCtrl.text.trim(),
+        senhaCtrl.text.trim(),
+      );
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("Bem-vindo, ${user.login}!")),
-    );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("Bem-vindo, ${user.login}!")));
 
-    // Se não tiver pet → vai para criar pet
-    if (!user.hasPet) {
-      Navigator.pushReplacementNamed(context, '/petsetup', arguments: user.id);
-      return;
+      if (!user.hasPet) {
+        Navigator.pushReplacementNamed(
+          context,
+          '/petsetup',
+          arguments: user.id,
+        );
+        return;
+      }
+
+      Navigator.pushReplacementNamed(context, '/home', arguments: user.id);
+    } catch (e) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("Erro: $e")));
     }
 
-    // Se já tiver pet → vai para home
-    Navigator.pushReplacementNamed(context, '/home', arguments: user.id);
-
-  } catch (e) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("Erro: $e")),
-    );
+    setState(() => loading = false);
   }
-
-  setState(() => loading = false);
-}
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Login")),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text("Login"),
-            TextField(controller: loginCtrl),
-
-            const SizedBox(height: 16),
-
-            const Text("Senha"),
-            TextField(
-              controller: senhaCtrl,
-              obscureText: true,
-            ),
-
-            const SizedBox(height: 32),
-
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: loading ? null : login,
-                child: loading
-                    ? const CircularProgressIndicator()
-                    : const Text("Entrar"),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: 400,
+                child: TextField(
+                  controller: loginCtrl,
+                  decoration: const InputDecoration(
+                    hintText: 'Usuário',
+                  ),
+                ),
               ),
-            )
-          ],
+
+              const SizedBox(height: 16),
+
+              SizedBox(
+                width: 400,
+                child: TextField(
+                  controller: senhaCtrl,
+                  obscureText: true,
+                  decoration: const InputDecoration(
+                    hintText: 'Senha',
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 100),
+
+              SizedBox(
+                width: 200,
+                child: ElevatedButton(
+                  style: OutlinedButton.styleFrom(
+                    backgroundColor: Colors.deepPurple,
+                    foregroundColor: Colors.white,
+                  ),
+                  onPressed: loading ? null : login,
+                  child: loading
+                      ? const CircularProgressIndicator()
+                      : const Text("Entrar"),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

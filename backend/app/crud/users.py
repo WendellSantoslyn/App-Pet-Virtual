@@ -2,6 +2,7 @@ from app.core.firebase import db
 
 COLLECTION = "Users"
 
+
 def create_user(data: dict) -> str:
     ref = db.collection(COLLECTION).add({
         "login": data["login"],
@@ -12,6 +13,7 @@ def create_user(data: dict) -> str:
 
 def get_user(user_id: str) -> dict | None:
     doc = db.collection(COLLECTION).document(user_id).get()
+
     if not doc.exists:
         return None
 
@@ -19,8 +21,8 @@ def get_user(user_id: str) -> dict | None:
 
     return {
         "id": doc.id,
-        "login": data.get("login") or data.get("Login"),
-        "senha": data.get("senha") or data.get("Senha")
+        "login": data.get("login"),
+        "senha": data.get("senha")
     }
 
 
@@ -32,8 +34,8 @@ def get_all_users() -> list[dict]:
         data = doc.to_dict()
         users.append({
             "id": doc.id,
-            "login": data.get("login") or data.get("Login"),
-            "senha": data.get("senha") or data.get("Senha")
+            "login": data.get("login"),
+            "senha": data.get("senha")
         })
 
     return users
@@ -41,6 +43,7 @@ def get_all_users() -> list[dict]:
 
 def update_user(user_id: str, data: dict) -> bool:
     doc_ref = db.collection(COLLECTION).document(user_id)
+
     if not doc_ref.get().exists:
         return False
 
@@ -53,6 +56,7 @@ def update_user(user_id: str, data: dict) -> bool:
 
 def delete_user(user_id: str) -> bool:
     doc_ref = db.collection(COLLECTION).document(user_id)
+
     if not doc_ref.get().exists:
         return False
 
