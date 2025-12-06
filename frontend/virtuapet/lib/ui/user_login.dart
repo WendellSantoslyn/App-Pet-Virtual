@@ -57,16 +57,16 @@ class _LoginState extends State<Login> {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            // # Retirar o crossAxis permite a centralização dos widgets na interface
-            //crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              Image.asset('assets/Dark_Icon-192.png'),
               //const Text("Login"),
               SizedBox(
                 width: 400,
                 child: TextField(controller: loginCtrl,
                   decoration: InputDecoration(
-                    hintText: 'Usuário',
+                    labelText: 'Usuário',
                   ),
                 ),
               ),
@@ -78,7 +78,7 @@ class _LoginState extends State<Login> {
                 width: 400,
                 child: TextField(controller: senhaCtrl, obscureText: true,
                   decoration: InputDecoration(
-                    hintText: 'Senha',
+                    labelText: 'Senha',
                   ),
                 ),
               ),

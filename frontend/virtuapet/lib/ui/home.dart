@@ -12,8 +12,16 @@ class Home extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset("../web/icons/Icon512.png"),
-              const SizedBox(height: 40),
+              Image.asset('assets/Dark_Icon-192.png'),
+              const SizedBox(
+                height: 60,
+                child: Text('VirtuaPet',
+                  style: TextStyle(
+                    fontSize: 24,
+                    //fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
 
               SizedBox(
                 width: 200,
