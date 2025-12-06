@@ -28,6 +28,7 @@ dist/
 *.env
 *.ini
 *.local
+virtuapet_ServiceKey.json
 
 #################################
 # 🔵 FASTAPI / UVICORN
