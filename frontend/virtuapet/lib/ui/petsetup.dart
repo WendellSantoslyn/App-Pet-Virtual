@@ -15,6 +15,17 @@ class _PetSetupState extends State<PetSetup> {
   final colors = ["Azul", "Amarelo", "Vermelho"];
   bool saving = false;
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // receber userId via arguments (do login)
+    final args = ModalRoute.of(context)?.settings.arguments;
+    if (args != null && args is String) {
+      Api.userId = args;
+      print("PetSetup recebeu userId=${Api.userId}");
+    }
+  }
+
   Future<void> savePet() async {
     if (nameCtrl.text.isEmpty || selectedColor == null) {
       ScaffoldMessenger.of(context)
@@ -22,9 +33,15 @@ class _PetSetupState extends State<PetSetup> {
       return;
     }
 
+    if (Api.userId.isEmpty) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("userId ausente")));
+      return;
+    }
+
     setState(() => saving = true);
 
-    final success = await Api.createPet(Api.userId, nameCtrl.text, selectedColor!);
+    final success = await Api.createPet(Api.userId, nameCtrl.text.trim(), selectedColor!);
 
     setState(() => saving = false);
 
@@ -35,7 +52,7 @@ class _PetSetupState extends State<PetSetup> {
     }
 
     if (!mounted) return;
-    Navigator.pushReplacementNamed(context, "/home");
+    Navigator.pushReplacementNamed(context, "/dashboard", arguments: Api.userId);
   }
 
   @override
@@ -51,7 +68,6 @@ class _PetSetupState extends State<PetSetup> {
               cameraControls: true,
             ),
           ),
-
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(16),
@@ -60,10 +76,8 @@ class _PetSetupState extends State<PetSetup> {
                 children: [
                   const Text("Nome do Pet:", style: TextStyle(fontSize: 18)),
                   TextField(controller: nameCtrl),
-
                   const SizedBox(height: 20),
                   const Text("Escolha uma cor:", style: TextStyle(fontSize: 18)),
-
                   DropdownButton<String>(
                     hint: const Text("Selecionar cor"),
                     value: selectedColor,
@@ -72,7 +86,6 @@ class _PetSetupState extends State<PetSetup> {
                     }).toList(),
                     onChanged: (v) => setState(() => selectedColor = v),
                   ),
-
                   const SizedBox(height: 30),
                   ElevatedButton(
                     onPressed: saving ? null : savePet,

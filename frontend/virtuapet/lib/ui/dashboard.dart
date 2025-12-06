@@ -33,7 +33,7 @@ class _PetDashboardState extends State<PetDashboard> {
   String _modelPathForColor(String color) {
     // padronize nomes dos arquivos em minúsculas: pet_azul.glb, pet_amarelo.glb, pet_vermelho.glb
     final c = color.toLowerCase();
-    return 'assets/models/pet_$c.glb';
+    return 'assets/models/cachorro_$c.glb';
   }
 
   @override

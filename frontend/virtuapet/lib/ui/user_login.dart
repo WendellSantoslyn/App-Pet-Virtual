@@ -28,7 +28,6 @@ class _LoginState extends State<Login> {
         context,
       ).showSnackBar(SnackBar(content: Text("Bem-vindo, ${user.login}!")));
 
-      // Se não tiver pet → vai para criar pet
       if (!user.hasPet) {
         Navigator.pushReplacementNamed(
           context,
@@ -38,7 +37,6 @@ class _LoginState extends State<Login> {
         return;
       }
 
-      // Se já tiver pet → vai para home
       Navigator.pushReplacementNamed(context, '/home', arguments: user.id);
     } catch (e) {
       ScaffoldMessenger.of(
@@ -58,14 +56,12 @@ class _LoginState extends State<Login> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            // # Retirar o crossAxis permite a centralização dos widgets na interface
-            //crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              //const Text("Login"),
               SizedBox(
                 width: 400,
-                child: TextField(controller: loginCtrl,
-                  decoration: InputDecoration(
+                child: TextField(
+                  controller: loginCtrl,
+                  decoration: const InputDecoration(
                     hintText: 'Usuário',
                   ),
                 ),
@@ -73,11 +69,12 @@ class _LoginState extends State<Login> {
 
               const SizedBox(height: 16),
 
-              //const Text("Senha"),
               SizedBox(
                 width: 400,
-                child: TextField(controller: senhaCtrl, obscureText: true,
-                  decoration: InputDecoration(
+                child: TextField(
+                  controller: senhaCtrl,
+                  obscureText: true,
+                  decoration: const InputDecoration(
                     hintText: 'Senha',
                   ),
                 ),
