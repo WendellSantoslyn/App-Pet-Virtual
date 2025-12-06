@@ -3,9 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.routers.user_router import router as user_router
 from app.routers.pet_router import router as pet_router
 
-origins = [
-    "*",
-]
+origins = ["*"]
 
 app = FastAPI()
 
