@@ -12,12 +12,16 @@ class Home extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const FlutterLogo(size: 120),
+              Image.asset("../web/icons/Icon512.png"),
               const SizedBox(height: 40),
 
               SizedBox(
-                width: double.infinity,
+                width: 200,
                 child: ElevatedButton(
+                  style: OutlinedButton.styleFrom(
+                    backgroundColor: Colors.deepPurple,
+                    foregroundColor: Colors.white,
+                  ),
                   onPressed: () => Navigator.pushNamed(context, '/login'),
                   child: const Text("Login"),
                 ),
@@ -26,8 +30,12 @@ class Home extends StatelessWidget {
               const SizedBox(height: 10),
 
               SizedBox(
-                width: double.infinity,
-                child: OutlinedButton(
+                width: 200,
+                child: ElevatedButton(
+                  style: OutlinedButton.styleFrom(
+                    backgroundColor: Colors.deepPurple,
+                    foregroundColor: Colors.white,
+                  ),
                   onPressed: () => Navigator.pushNamed(context, '/register'),
                   child: const Text("Registrar"),
                 ),
