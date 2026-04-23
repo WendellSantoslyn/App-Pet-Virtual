@@ -24,15 +24,15 @@ class _RegistrarState extends State<Registrar> {
         senhaCtrl.text.trim(),
       );
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Usuário criado! ID: ${user.id}")),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("Usuário criado! ID: ${user.id}")));
 
       Navigator.pop(context); // volta pra tela anterior
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Erro: $e")),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("Erro: $e")));
     }
 
     setState(() => loading = false);
@@ -42,34 +42,51 @@ class _RegistrarState extends State<Registrar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Registrar Usuário")),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text("Login"),
-            TextField(controller: loginCtrl),
-
-            const SizedBox(height: 16),
-
-            const Text("Senha"),
-            TextField(
-              controller: senhaCtrl,
-              obscureText: true,
-            ),
-
-            const SizedBox(height: 32),
-
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: loading ? null : registrar,
-                child: loading
-                    ? const CircularProgressIndicator()
-                    : const Text("Criar Usuário"),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              //const Text("Login"),
+              SizedBox(
+                width: 400,
+                child: TextField(
+                  controller: loginCtrl,
+                  decoration: InputDecoration(labelText: 'Nome de Usuário'),
+                ),
               ),
-            )
-          ],
+
+              const SizedBox(height: 16),
+
+              //const Text("Senha"),
+              SizedBox(
+                width: 400,
+                child: TextField(
+                  controller: senhaCtrl,
+                  obscureText: true,
+                  decoration: InputDecoration(labelText: 'Senha'),
+                ),
+              ),
+
+              const SizedBox(height: 32),
+
+              SizedBox(
+                width: 200,
+                child: ElevatedButton(
+                  style: OutlinedButton.styleFrom(
+                    backgroundColor: Colors.deepPurple,
+                    foregroundColor: Colors.white,
+                  ),
+                  onPressed: loading ? null : registrar,
+                  child: loading
+                      ? const CircularProgressIndicator()
+                      : const Text("Criar Usuário"),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
